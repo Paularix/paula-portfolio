@@ -21,7 +21,7 @@ export const Footer = ({
   exitMessage = "Wait! Let’s turn this visit into a chat ✨", 
   exitIcon = <WavingHandIcon sx={{ color: colors.olive, fontSize: 18 }} />,
   email = "pmarcosc5@gmail.com",
-  linkedInUrl = "https://linkedin.com",
+  linkedInUrl = "https://www.linkedin.com/in/paula-marcos-203416231/",
   footerNote = "Crafted with soul & code"
 }: FooterProps) => {
 
