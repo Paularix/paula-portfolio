@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Container, Typography, Box, Stack, Grid, Paper, Button } from '@mui/material';
+import Image from 'next/image';
+import { Container, Typography, Box, Stack, Paper, Button } from '@mui/material';
 import { alpha } from '@mui/material/styles'; 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -11,7 +12,6 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import BrushIcon from '@mui/icons-material/Brush';
 import WaterIcon from '@mui/icons-material/Water';
 import TheaterComedyIcon from '@mui/icons-material/TheaterComedy';
-import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
 
 import { useThemeCustom } from '../context/ThemeContext';
 import { Footer } from '../components/Footer';
@@ -93,9 +93,16 @@ export default function About() {
           </Button>
         </Link>
 
-        {/* Hero Section */}
-        <Grid container spacing={6} alignItems="flex-start" sx={{ mb: 12 }}>
-          <Grid item xs={12} md={8}>
+        {/* Hero Section - Reemplazado Grid por Box Flex */}
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: { xs: 'column', md: 'row' }, 
+          gap: 6, 
+          alignItems: 'flex-start', 
+          mb: 12 
+        }}>
+          {/* Bloque Texto (Equivalente a md: 8) */}
+          <Box sx={{ width: { xs: '100%', md: '66.66%' } }}>
             <motion.div initial="hidden" animate="visible" variants={containerVariants}>
               <motion.div variants={itemVariants}>
                 <Typography variant="h2" sx={{ fontWeight: 900, color: colors.purple, mb: 3, fontSize: { xs: '3rem', md: '4.5rem' }, lineHeight: 1 }}>
@@ -105,8 +112,7 @@ export default function About() {
               
               <motion.div variants={itemVariants}>
                 <Typography variant="h6" sx={{ color: '#4a4a3a', lineHeight: 1.6, fontWeight: 500, mb: 3, maxWidth: '750px' }}>
-                  Thanks for stopping by. Beyond writing code, I believe that my diverse background helps me approach technical problems from different perspectives.
-                </Typography>
+Hey! I love that you’re curious enough to be here. Building software is, for me, just another form of expression. Let me share a bit of the journey that brought me to the screen.                </Typography>
                 
                 <Typography variant="body2" sx={{ color: '#4a4a3a', opacity: 0.8, lineHeight: 1.8, maxWidth: '700px', mb: 2 }}>
                   Originally from <strong>Menorca</strong> and based in <strong>Barcelona</strong> for the last 6 years, I started my professional path in the arts. After an artistic baccalaureate, I focused on <strong>music and musical theater</strong>, performing with various bands while working in different sectors to support my studies.
@@ -117,141 +123,144 @@ export default function About() {
                 </Typography>
               </motion.div>
             </motion.div>
-          </Grid>
+          </Box>
 
-  <Grid item xs={12} md={4}>
-    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}>
-      <Box sx={{ 
-        position: 'relative',
-        maxWidth: '280px', 
-        margin: '0 auto',
-        borderRadius: '30px', 
-        overflow: 'hidden',
-        border: `2px solid ${colors.purple}`,
-        boxShadow: `8px 8px 0px ${colors.lavender}`,
-      }}>
-        <img src="/profile-photo.jpeg" alt="Paula Marcos" style={{ width: '100%', height: 'auto', display: 'block' }} />
-      </Box>
-    </motion.div>
-  </Grid>
-</Grid>
+          {/* Bloque Imagen (Equivalente a md: 4) */}
+          <Box sx={{ width: { xs: '100%', md: '33.33%' } }}>
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}>
+              <Box sx={{ 
+                position: 'relative',
+                maxWidth: '280px', 
+                margin: '0 auto',
+                borderRadius: '30px', 
+                overflow: 'hidden',
+                border: `2px solid ${colors.purple}`,
+                boxShadow: `8px 8px 0px ${colors.lavender}`,
+              }}>
+                <Image src="/profile-photo.jpeg" alt="Paula Marcos" width={280} height={280} style={{ width: '100%', height: 'auto', display: 'block' }} />
+              </Box>
+            </motion.div>
+          </Box>
+        </Box>
 
-        {/* Pasiones Collage Grid */}
-        <Grid container spacing={4} sx={{ mb: 8 }}>
-          <Grid item xs={12}>
-            <Typography variant="h4" sx={{ fontWeight: 900, color: colors.purple, mb: 4 }}>
-              Other curiosities
-            </Typography>
-          </Grid>
+        {/* Pasiones Collage - Reemplazado Grid por Box Stack */}
+        <Box sx={{ mb: 8 }}>
+          <Typography variant="h4" sx={{ fontWeight: 900, color: colors.purple, mb: 4 }}>
+            Other curiosities
+          </Typography>
           
-          {lifeActs.map((act) => {
-            const IconComponent = act.Icon;
-            const isHovered = hoveredId === act.id;
-            const validImages = act.images.filter(img => img !== '');
+          <Stack spacing={4}>
+            {lifeActs.map((act) => {
+              const IconComponent = act.Icon;
+              const isHovered = hoveredId === act.id;
+              const validImages = act.images.filter(img => img !== '');
 
-            return (
-              <Grid item xs={12} key={act.id}>
-                <motion.div 
-                  onMouseEnter={() => setHoveredId(act.id)}
-                  onMouseLeave={() => setHoveredId(null)}
-                  variants={itemVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  layout 
-                >
-                  <Paper elevation={0} sx={{ 
-                    borderRadius: '40px', 
-                    bgcolor: 'white',
-                    border: `1px solid ${isHovered ? colors.purple : colors.lavender}`,
-                    position: 'relative',
-                    overflow: 'hidden',
-                    minHeight: '240px',
-                    height: 'auto', 
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                    boxShadow: isHovered ? `0 20px 40px ${alpha(colors.lavender, 0.3)}` : 'none',
-                  }}>
-                    
-                    <Box sx={{ 
-                      p: { xs: 4, md: 6 }, 
-                      zIndex: 3, 
-                      width: { xs: '100%', md: isHovered ? '55%' : '100%' },
-                      transition: 'width 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+              return (
+                <Box key={act.id}>
+                  <motion.div 
+                    onMouseEnter={() => setHoveredId(act.id)}
+                    onMouseLeave={() => setHoveredId(null)}
+                    variants={itemVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    layout 
+                  >
+                    <Paper elevation={0} sx={{ 
+                      borderRadius: '40px', 
+                      bgcolor: 'white',
+                      border: `1px solid ${isHovered ? colors.purple : colors.lavender}`,
+                      position: 'relative',
+                      overflow: 'hidden',
+                      minHeight: '240px',
+                      height: 'auto', 
                       display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center'
-                    }}>
-                      <Stack direction="row" spacing={3} alignItems="center" sx={{ mb: 2 }}>
-                        <Box sx={{ 
-                            p: 1.5, 
-                            bgcolor: isHovered ? colors.purple : alpha(colors.lavender, 0.2), 
-                            borderRadius: '12px', 
-                            display: 'flex', 
-                            transition: '0.4s'
-                        }}>
-                          <IconComponent sx={{ color: isHovered ? colors.cream : colors.purple, fontSize: 28 }} />
-                        </Box>
-                        <Typography variant="caption" sx={{ color: colors.olive, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 1.5 }}>
-                          {act.tag}
-                        </Typography>
-                      </Stack>
-                      
-                      <Typography variant="h4" sx={{ fontWeight: 900, color: colors.purple, mb: 1, fontSize: { xs: '1.5rem', md: '2rem' } }}>
-                        {act.title}
-                      </Typography>
-                      
-                      <Typography variant="body1" sx={{ 
-                        color: '#4a4a3a', 
-                        lineHeight: 1.7,
-                        transition: 'all 0.5s ease'
-                      }}>
-                        {act.desc}
-                      </Typography>
-                    </Box>
-
-                    <Box sx={{ 
-                      width: isHovered ? '45%' : '0%',
-                      opacity: isHovered ? 1 : 0,
-                      height: '100%',
-                      display: { xs: 'none', md: 'flex' },
+                      flexDirection: 'row',
                       alignItems: 'center',
-                      justifyContent: 'center',
                       transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                      pr: isHovered ? 4 : 0,
-                      overflow: 'hidden'
+                      boxShadow: isHovered ? `0 20px 40px ${alpha(colors.lavender, 0.3)}` : 'none',
                     }}>
-                      <Stack direction="row" spacing={2} sx={{ minWidth: '400px', justifyContent: 'center' }}>
-                        {validImages.map((imgUrl, index) => (
-                          <Box 
-                            key={imgUrl}
-                            sx={{
-                              width: '180px',
-                              height: '180px',
-                              borderRadius: '24px',
-                              overflow: 'hidden',
-                              boxShadow: '0 12px 30px rgba(0,0,0,0.1)',
-                              flexShrink: 0
-                            }}
-                          >
-                            <img 
-                              src={imgUrl} 
-                              alt={act.title} 
-                              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                            />
+                      
+                      <Box sx={{ 
+                        p: { xs: 4, md: 6 }, 
+                        zIndex: 3, 
+                        width: { xs: '100%', md: isHovered ? '55%' : '100%' },
+                        transition: 'width 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center'
+                      }}>
+                        <Stack direction="row" spacing={3} alignItems="center" sx={{ mb: 2 }}>
+                          <Box sx={{ 
+                              p: 1.5, 
+                              bgcolor: isHovered ? colors.purple : alpha(colors.lavender, 0.2), 
+                              borderRadius: '12px', 
+                              display: 'flex', 
+                              transition: '0.4s'
+                          }}>
+                            <IconComponent sx={{ color: isHovered ? colors.cream : colors.purple, fontSize: 28 }} />
                           </Box>
-                        ))}
-                      </Stack>
-                    </Box>
+                          <Typography variant="caption" sx={{ color: colors.olive, fontWeight: 800, textTransform: 'uppercase', letterSpacing: 1.5 }}>
+                            {act.tag}
+                          </Typography>
+                        </Stack>
+                        
+                        <Typography variant="h4" sx={{ fontWeight: 900, color: colors.purple, mb: 1, fontSize: { xs: '1.5rem', md: '2rem' } }}>
+                          {act.title}
+                        </Typography>
+                        
+                        <Typography variant="body1" sx={{ 
+                          color: '#4a4a3a', 
+                          lineHeight: 1.7,
+                          transition: 'all 0.5s ease'
+                        }}>
+                          {act.desc}
+                        </Typography>
+                      </Box>
 
-                  </Paper>
-                </motion.div>
-              </Grid>
-            );
-          })}
-        </Grid>
+                      <Box sx={{ 
+                        width: isHovered ? '45%' : '0%',
+                        opacity: isHovered ? 1 : 0,
+                        height: '100%',
+                        display: { xs: 'none', md: 'flex' },
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                        pr: isHovered ? 4 : 0,
+                        overflow: 'hidden'
+                      }}>
+                        <Stack direction="row" spacing={2} sx={{ minWidth: '400px', justifyContent: 'center' }}>
+                          {validImages.map((imgUrl) => (
+                            <Box 
+                              key={imgUrl}
+                              sx={{
+                                width: '180px',
+                                height: '180px',
+                                borderRadius: '24px',
+                                overflow: 'hidden',
+                                boxShadow: '0 12px 30px rgba(0,0,0,0.1)',
+                                flexShrink: 0
+                              }}
+                            >
+                              <Image 
+                                src={imgUrl} 
+                                alt={act.title} 
+                                width={180}
+                                height={180}
+                                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                              />
+                            </Box>
+                          ))}
+                        </Stack>
+                      </Box>
+
+                    </Paper>
+                  </motion.div>
+                </Box>
+              );
+            })}
+          </Stack>
+        </Box>
 
       </Container>
 

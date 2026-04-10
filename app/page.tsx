@@ -1,6 +1,6 @@
 'use client';
 
-import { Container, Typography, Box, Stack, Grid } from '@mui/material';
+import { Container, Typography, Box, Stack } from '@mui/material';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
@@ -32,9 +32,14 @@ export default function Home() {
 
       <Box sx={{ position: 'relative', pt: { xs: 6, md: 12 }, pb: { xs: 8, md: 10 } }}>
         <Container maxWidth="lg">
-          <Grid container spacing={8} alignItems="center">
+          <Box sx={{ 
+            display: 'flex', 
+            flexDirection: { xs: 'column', md: 'row' }, 
+            gap: 8, 
+            alignItems: 'center' 
+          }}>
 
-            <Grid item xs={12} md={7}>
+            <Box sx={{ width: { xs: '100%', md: '58.33%' } }}>
               <motion.div 
                 initial="hidden" 
                 animate="visible" 
@@ -82,17 +87,17 @@ export default function Home() {
                   />
                 </motion.div>
               </motion.div>
-            </Grid>
+            </Box>
 
-            <Grid item xs={12} md={5}>
+            <Box sx={{ width: { xs: '100%', md: '41.66%' } }}>
               <InfoCard
                 image="/profile-photo.jpeg"
                 title="Paula Marcos"
                 subtitle="Collaborative Engineering & Product Ownership"
                 href="/about"
               />
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Container>
       </Box>
 

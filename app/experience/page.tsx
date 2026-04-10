@@ -4,7 +4,7 @@ import { useState } from 'react';
 import {
   Container, Typography, Box, Stack, Chip,
   Accordion, AccordionSummary, AccordionDetails,
-  IconButton, Button, Grid, Divider
+  IconButton, Button, Divider
 } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -23,7 +23,6 @@ import BugReportIcon from '@mui/icons-material/BugReport';
 import Link from 'next/link';
 
 import { useThemeCustom } from '../context/ThemeContext';
-
 
 interface Testimonial {
   text: string;
@@ -340,8 +339,14 @@ export default function Experience() {
                   </Typography>
                 </Box>
 
-                <Grid container spacing={4}>
-                  <Grid item xs={12} md={7}>
+                {/* Sustitución de Grid container por Box Flex */}
+                <Box sx={{ 
+                  display: 'flex', 
+                  flexDirection: { xs: 'column', md: 'row' }, 
+                  gap: 4 
+                }}>
+                  {/* Bloque Izquierdo (Equivalente a md: 7) */}
+                  <Box sx={{ width: { xs: '100%', md: '58.33%' } }}>
                     <Typography variant="subtitle2" sx={{ color: colors.olive, fontWeight: 800, textTransform: 'uppercase', mb: 2 }}>
                       Key Contributions
                     </Typography>
@@ -356,9 +361,10 @@ export default function Experience() {
                         </li>
                       ))}
                     </Box>
-                  </Grid>
+                  </Box>
 
-                  <Grid item xs={12} md={5}>
+                  {/* Bloque Derecho (Equivalente a md: 5) */}
+                  <Box sx={{ width: { xs: '100%', md: '41.66%' } }}>
                     <Typography variant="subtitle2" sx={{ color: colors.olive, fontWeight: 800, textTransform: 'uppercase', mb: 2 }}>
                       Applied Expertise
                     </Typography>
@@ -367,10 +373,9 @@ export default function Experience() {
                         <PillarCard key={pIdx} {...pillar} />
                       ))}
                     </Stack>
-                  </Grid>
-                </Grid>
+                  </Box>
+                </Box>
 
-                {/* Chips movidos aquí para ocupar todo el width de la card */}
                 <Box sx={{ mt: 4 }}>
                   <Typography variant="subtitle2" sx={{ color: colors.olive, fontWeight: 800, textTransform: 'uppercase', mb: 2 }}>
                     Tech Stack & Skills
